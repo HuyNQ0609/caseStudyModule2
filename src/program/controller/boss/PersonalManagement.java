@@ -23,12 +23,24 @@ public class PersonalManagement {
     }
 
     /* Add new laborer */
-    public void addLaborer(Laborer laborer) {
-        laborerList.add(laborer);
+    public void add(Laborer laborer) {
+        try {
+            laborerList.add(laborer);
+        } catch (RuntimeException e) {
+            System.out.println("Cannot add!");
+        }
     }
     /* Edit laborer information */
     public void editLaborer(int index, Laborer laborer) {
         laborerList.set(index, laborer);
+    }
+    public String searchStaff(List<Laborer> laborerList, String name) {
+        for (Laborer laborer : laborerList) {
+            if (laborer.getName().equals(name)) {
+                return "Staff information:\n" + laborer;
+            }
+        }
+        return "The employee name does not exist!";
     }
     /* Delete laborer */
     public void deleteLaborer(int index) {

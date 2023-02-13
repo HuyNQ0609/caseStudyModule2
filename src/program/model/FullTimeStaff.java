@@ -57,4 +57,11 @@ public class FullTimeStaff extends Laborer implements Wage {
     public int getSalaryReceived() {
         return getHardSalary() + getReward() - getMulct();
     }
+
+    @Override
+    public String toString() {
+        return  getId() + ", " + getName() + ", " + getAge() + ", " + getAddress() + ", " +
+                getEmail() + ", " + getPhoneNumber() + ", " + getHardSalary() + ", " +
+                getReward() + ", " + getMulct();
+    }
 }

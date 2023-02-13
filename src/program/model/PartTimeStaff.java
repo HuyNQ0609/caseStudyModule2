@@ -33,4 +33,10 @@ public class PartTimeStaff extends Laborer implements Wage {
     public int getSalaryReceived() {
         return getHour() * 20000;
     }
+
+    @Override
+    public String toString() {
+        return  getId() + ", " + getName() + ", " + getAge() + ", " + getAddress() + ", " +
+                getEmail() + ", " + getPhoneNumber() + ", " + getHour();
+    }
 }
