@@ -1,27 +1,38 @@
 package program.model;
 
-public abstract class Laborer extends Overview {
+public abstract class Personal extends Name {
+    private int id;
     private int age;
     private String address;
     private String email;
     private int phoneNumber;
 
-    public Laborer() {
+    public Personal() {
     }
 
-    public Laborer(int age, String address, String email, int phoneNumber) {
+    public Personal(int id, int age, String address, String email, int phoneNumber) {
+        this.id = id;
         this.age = age;
         this.address = address;
         this.email = email;
         this.phoneNumber = phoneNumber;
     }
 
-    public Laborer(int id, String name, int age, String address, String email, int phoneNumber) {
-        super(id, name);
+    public Personal(int id, String name, int age, String address, String email, int phoneNumber) {
+        super(name);
+        this.id = id;
         this.age = age;
         this.address = address;
         this.email = email;
         this.phoneNumber = phoneNumber;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getAge() {

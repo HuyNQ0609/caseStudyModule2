@@ -1,6 +1,6 @@
 package program.model;
 
-public class FullTimeStaff extends Laborer implements Wage {
+public class FullTimeStaff extends Personal implements Wage {
     private int hardSalary;
     private int reward;
     private int mulct;
@@ -15,8 +15,8 @@ public class FullTimeStaff extends Laborer implements Wage {
         this.mulct = mulct;
     }
 
-    public FullTimeStaff(int age, String address, String email, int phoneNumber, int hardSalary, int reward, int mulct) {
-        super(age, address, email, phoneNumber);
+    public FullTimeStaff(int id, int age, String address, String email, int phoneNumber, int hardSalary, int reward, int mulct) {
+        super(id, age, address, email, phoneNumber);
         this.hardSalary = hardSalary;
         this.reward = reward;
         this.mulct = mulct;

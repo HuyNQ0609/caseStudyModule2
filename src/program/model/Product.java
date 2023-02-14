@@ -1,6 +1,6 @@
 package program.model;
 
-public class Product extends Overview implements Comparable<Product> {
+public class Product extends Name implements Comparable<Product> {
     private int price;
 
     public Product() {
@@ -10,8 +10,8 @@ public class Product extends Overview implements Comparable<Product> {
         this.price = price;
     }
 
-    public Product(int id, String name, int price) {
-        super(id, name);
+    public Product(String name, int price) {
+        super(name);
         this.price = price;
     }
 
@@ -23,10 +23,9 @@ public class Product extends Overview implements Comparable<Product> {
         this.price = price;
     }
 
-
     @Override
     public String toString() {
-        return getId() + ", " + getName() + ", " + getPrice();
+        return getName() + ", " + getPrice();
     }
 
     @Override

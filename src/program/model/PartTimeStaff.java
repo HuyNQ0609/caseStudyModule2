@@ -1,6 +1,6 @@
 package program.model;
 
-public class PartTimeStaff extends Laborer implements Wage {
+public class PartTimeStaff extends Personal implements Wage {
     private int hour;
 
     public PartTimeStaff() {
@@ -11,8 +11,8 @@ public class PartTimeStaff extends Laborer implements Wage {
         this.hour = hour;
     }
 
-    public PartTimeStaff(int age, String address, String email, int phoneNumber, int hour) {
-        super(age, address, email, phoneNumber);
+    public PartTimeStaff(int id, int age, String address, String email, int phoneNumber, int hour) {
+        super(id, age, address, email, phoneNumber);
         this.hour = hour;
     }
 

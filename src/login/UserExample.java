@@ -6,7 +6,7 @@ import java.util.regex.Pattern;
 public class UserExample {
     private static final String ACCOUNT_REGEX = "^[_a-zA-Z0-9]{6,}$";
     private static final String PASSWORD_REGEX = "^[A-Z][_a-zA-Z0-9]{8,}$";
-    UserExample() {
+    public UserExample() {
 
     }
 
