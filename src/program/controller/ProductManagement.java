@@ -1,11 +1,13 @@
 package program.controller;
 
+import program.model.Personal;
 import program.model.Product;
+import program.storage.ReadAndWrite;
 
 import java.util.*;
 
 public class ProductManagement {
-    List<Product> productList;
+    List<Product> productList = ReadAndWrite.getInstance().readFileProduct();
 
     public ProductManagement(List<Product> productList) {
         this.productList = productList;
@@ -22,16 +24,41 @@ public class ProductManagement {
     /* Add new product */
     public void addProduct(Product product) {
         productList.add(product);
+        ReadAndWrite.getInstance().writeFileProduct(productList);
     }
 
     /* Edit product */
-    public void editProduct(int index, Product product) {
-        productList.set(index, product);
+    public void editProduct(String name) {
+        int index;
+        for (Product product: productList) {
+            if (product.getName().equals(name)) {
+                index = productList.indexOf(product);
+                productList.set(index, product);
+                break;
+            }
+        }
+        ReadAndWrite.getInstance().writeFileProduct(productList);
     }
 
     /* Delete product */
-    public void deleteProduct(int index) {
-        productList.remove(index);
+    public void deleteProduct(String name) {
+        for (Product product: productList) {
+            if (product.getName().equals(name)) {
+                productList.remove(product);
+                break;
+            }
+        }
+        ReadAndWrite.getInstance().writeFileProduct(productList);
+    }
+
+    /* Search product */
+    public String searchStaff(String name) {
+        for (Product product: productList) {
+            if (product.getName().equals(name)) {
+                return "" + product;
+            }
+        }
+        return "Product not found!";
     }
 
     /* Returns the total number of products included in the list */

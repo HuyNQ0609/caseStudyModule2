@@ -40,9 +40,8 @@ public class ReadAndWrite {
     public List<Product> readFileProduct() {
         file = new File("product.dat");
         List<Product> products;
-        InputStream inputStream;
         try {
-            inputStream = new FileInputStream(file);
+            InputStream inputStream = new FileInputStream(file);
             BufferedInputStream bufferedInputStream = new BufferedInputStream(inputStream);
             ObjectInputStream objectInputStream = new ObjectInputStream(bufferedInputStream);
             products = (List<Product>) objectInputStream.readObject();
@@ -72,9 +71,8 @@ public class ReadAndWrite {
     public List<Personal> readFilePersonal() {
         file = new File("staff.dat");
         List<Personal> products;
-        InputStream inputStream;
         try {
-            inputStream = new FileInputStream(file);
+            InputStream inputStream = new FileInputStream(file);
             BufferedInputStream bufferedInputStream = new BufferedInputStream(inputStream);
             ObjectInputStream objectInputStream = new ObjectInputStream(bufferedInputStream);
             products = (List<Personal>) objectInputStream.readObject();
