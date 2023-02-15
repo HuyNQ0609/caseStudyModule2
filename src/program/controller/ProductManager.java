@@ -1,15 +1,18 @@
 package program.controller;
 
-import program.model.Personal;
 import program.model.Product;
 import program.storage.ReadAndWrite;
 
 import java.util.*;
 
-public class ProductManagement {
-    List<Product> productList = ReadAndWrite.getInstance().readFileProduct();
+public class ProductManager {
+    List<Product> productList;
 
-    public ProductManagement(List<Product> productList) {
+    public ProductManager() {
+        productList = new ArrayList<>();
+    }
+
+    public ProductManager(List<Product> productList) {
         this.productList = productList;
     }
 
@@ -54,7 +57,7 @@ public class ProductManagement {
     /* Search product */
     public String searchStaff(String name) {
         for (Product product: productList) {
-            if (product.getName().equals(name)) {
+            if (name.equals(product.getName())) {
                 return "" + product;
             }
         }

@@ -8,11 +8,9 @@ import java.util.*;
 
 public class ReadAndWrite {
     private File file;
-    private ReadAndWrite() {
-
-    }
+    private ReadAndWrite() {}
     private static ReadAndWrite instance;
-    public static ReadAndWrite getInstance(){
+    public static ReadAndWrite getInstance() {
         if (instance == null) {
             instance = new ReadAndWrite();
         }

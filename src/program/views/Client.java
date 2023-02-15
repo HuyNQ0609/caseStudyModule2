@@ -4,12 +4,12 @@ import login.UserExample;
 
 import java.util.Scanner;
 
-public class Program {
+public class Client {
+    private static final PerformFunction performFunction = new PerformFunction();
     private static final Scanner input = new Scanner(System.in);
 
     private static void loginUser() {
         UserExample userExample = new UserExample();
-        Scanner input = new Scanner(System.in);
         System.out.println("Login your account");
         while (true) {
             System.out.println("Enter account: ");
@@ -27,5 +27,6 @@ public class Program {
 
     public static void main(String[] args) {
         loginUser();
+        performFunction.showManagerProgram();
     }
 }
