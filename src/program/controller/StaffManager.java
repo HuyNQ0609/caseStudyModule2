@@ -66,14 +66,15 @@ public class StaffManager {
 
     /* Average salary of employees */
     public double getAverageSalary() {
-        return getTotalSalary() / personalList.size();
+        int size = personalList.size();
+        return (getTotalSalary() / size);
     }
     /* Total salary of employees */
 
-    public int getTotalSalary() {
-        int totalSalary = 0;
+    public double getTotalSalary() {
+        double totalSalary = 0;
         for (Personal staff : personalList) {
-            totalSalary = totalSalary + staff.getSalaryReceived();
+            totalSalary = totalSalary + staff.getMoney();
         }
         return totalSalary;
     }

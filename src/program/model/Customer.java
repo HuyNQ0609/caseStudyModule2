@@ -11,6 +11,14 @@ public class Customer extends Personal {
         this.products = products;
     }
 
+    public List<Product> getProducts() {
+        return products;
+    }
+
+    public void setProducts(List<Product> products) {
+        this.products = products;
+    }
+
     public Customer(int id, int age, String address, String email, int phoneNumber, List<Product> products) {
         super(id, age, address, email, phoneNumber);
         this.products = products;
@@ -20,5 +28,20 @@ public class Customer extends Personal {
                     int phoneNumber, List<Product> products) {
         super(id, name, age, address, email, phoneNumber);
         this.products = products;
+    }
+
+    @Override
+    public int getMoney() {
+        int totalMoney = 0;
+        for (Product product : products) {
+            totalMoney += (product.getPrice() * product.getQuantity());
+        }
+        return totalMoney;
+    }
+
+    @Override
+    public String toString() {
+        return getName() + ", " + getAge() + ", " + getEmail() + ", " +
+                    getAddress() + ", " + getPhoneNumber();
     }
 }

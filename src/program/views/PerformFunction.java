@@ -112,7 +112,7 @@ public class PerformFunction {
             case 2 -> staffManager.editStaff();
             case 3 -> staffManager.deleteStaff();
             case 4 -> staffManager.searchStaff();
-            case 5 -> staffManager.;
+            case 5 -> showListStaff();
             case 6 -> printStaffList();
             case 7 -> System.out.println("\nAverage salary of employees: " +
                     staffManagers.getAverageSalary());
@@ -125,10 +125,40 @@ public class PerformFunction {
             default -> System.out.println("Please choose again!");
         }
     }
-
+    /* Show list staff information */
     public void showListStaff() {
         for (Personal staff : employees) {
             System.out.println(staff);
         }
+    }
+
+    public int enterId() {
+        System.out.println("Enter id: ");
+        return input.nextInt();
+    }
+
+    public String enterName() {
+        System.out.println("Enter name: ");
+        return input.nextLine();
+    }
+
+    public int enterAge() {
+        System.out.println("Enter age: ");
+        return input.nextInt();
+    }
+
+    public String enterAddress() {
+        System.out.println("Enter address: ");
+        return input.nextLine();
+    }
+
+    public String enterEmail() {
+        System.out.println("Enter email: ");
+        return input.nextLine();
+    }
+
+    public int enterPhoneNumber() {
+        System.out.println("Enter phone number: ");
+        return input.nextInt();
     }
 }

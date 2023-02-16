@@ -54,7 +54,7 @@ public class FullTimeStaff extends Personal implements Comparable<FullTimeStaff>
     }
 
     @Override
-    public int getSalaryReceived() {
+    public int getMoney() {
         return getHardSalary() + getReward() - getMulct();
     }
 

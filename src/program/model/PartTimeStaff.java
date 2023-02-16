@@ -30,7 +30,7 @@ public class PartTimeStaff extends Personal implements Comparable<PartTimeStaff>
     }
 
     @Override
-    public int getSalaryReceived() {
+    public int getMoney() {
         return getHour() * 20000;
     }
 
