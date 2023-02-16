@@ -5,12 +5,12 @@ public abstract class Personal extends Name implements Wage {
     private int age;
     private String address;
     private String email;
-    private int phoneNumber;
+    private String phoneNumber;
 
     public Personal() {
     }
 
-    public Personal(int id, int age, String address, String email, int phoneNumber) {
+    public Personal(int id, int age, String address, String email, String phoneNumber) {
         this.id = id;
         this.age = age;
         this.address = address;
@@ -18,7 +18,7 @@ public abstract class Personal extends Name implements Wage {
         this.phoneNumber = phoneNumber;
     }
 
-    public Personal(int id, String name, int age, String address, String email, int phoneNumber) {
+    public Personal(int id, String name, int age, String address, String email, String phoneNumber) {
         super(name);
         this.id = id;
         this.age = age;
@@ -59,11 +59,11 @@ public abstract class Personal extends Name implements Wage {
         this.email = email;
     }
 
-    public int getPhoneNumber() {
+    public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(int phoneNumber) {
+    public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 }

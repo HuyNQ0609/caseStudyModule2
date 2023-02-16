@@ -19,13 +19,13 @@ public class Customer extends Personal {
         this.products = products;
     }
 
-    public Customer(int id, int age, String address, String email, int phoneNumber, List<Product> products) {
+    public Customer(int id, int age, String address, String email, String phoneNumber, List<Product> products) {
         super(id, age, address, email, phoneNumber);
         this.products = products;
     }
 
     public Customer(int id, String name, int age, String address, String email,
-                    int phoneNumber, List<Product> products) {
+                    String phoneNumber, List<Product> products) {
         super(id, name, age, address, email, phoneNumber);
         this.products = products;
     }

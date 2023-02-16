@@ -15,14 +15,16 @@ public class FullTimeStaff extends Personal implements Comparable<FullTimeStaff>
         this.mulct = mulct;
     }
 
-    public FullTimeStaff(int id, int age, String address, String email, int phoneNumber, int hardSalary, int reward, int mulct) {
+    public FullTimeStaff(int id, int age, String address, String email, String phoneNumber,
+                         int hardSalary, int reward, int mulct) {
         super(id, age, address, email, phoneNumber);
         this.hardSalary = hardSalary;
         this.reward = reward;
         this.mulct = mulct;
     }
 
-    public FullTimeStaff(int id, String name, int age, String address, String email, int phoneNumber, int hardSalary, int reward, int mulct) {
+    public FullTimeStaff(int id, String name, int age, String address, String email, String phoneNumber,
+                         int hardSalary, int reward, int mulct) {
         super(id, name, age, address, email, phoneNumber);
         this.hardSalary = hardSalary;
         this.reward = reward;
