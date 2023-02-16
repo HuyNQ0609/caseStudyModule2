@@ -1,6 +1,6 @@
 package program.model;
 
-public class PartTimeStaff extends Personal implements Wage {
+public class PartTimeStaff extends Personal implements Comparable<PartTimeStaff> {
     private int hour;
 
     public PartTimeStaff() {
@@ -38,5 +38,10 @@ public class PartTimeStaff extends Personal implements Wage {
     public String toString() {
         return  getId() + ", " + getName() + ", " + getAge() + ", " + getAddress() + ", " +
                 getEmail() + ", " + getPhoneNumber() + ", " + getHour();
+    }
+
+    @Override
+    public int compareTo(PartTimeStaff o) {
+        return getHour() - o.getHour();
     }
 }

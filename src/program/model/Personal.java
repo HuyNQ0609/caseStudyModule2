@@ -1,6 +1,6 @@
 package program.model;
 
-public abstract class Personal extends Name {
+public abstract class Personal extends Name implements Wage {
     private int id;
     private int age;
     private String address;

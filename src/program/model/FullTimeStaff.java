@@ -1,6 +1,6 @@
 package program.model;
 
-public class FullTimeStaff extends Personal implements Wage {
+public class FullTimeStaff extends Personal implements Comparable<FullTimeStaff> {
     private int hardSalary;
     private int reward;
     private int mulct;
@@ -63,5 +63,10 @@ public class FullTimeStaff extends Personal implements Wage {
         return  getId() + ", " + getName() + ", " + getAge() + ", " + getAddress() + ", " +
                 getEmail() + ", " + getPhoneNumber() + ", " + getHardSalary() + ", " +
                 getReward() + ", " + getMulct();
+    }
+
+    @Override
+    public int compareTo(FullTimeStaff o) {
+        return getHardSalary() - o.getHardSalary();
     }
 }

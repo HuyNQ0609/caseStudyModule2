@@ -1,6 +1,6 @@
 package program.controller;
 
-import program.model.Personal;
+import program.model.*;
 import program.storage.ReadAndWrite;
 
 import java.util.*;
@@ -62,5 +62,41 @@ public class StaffManager {
             }
         }
         return "Staff not found!";
+    }
+
+    /* Average salary of employees */
+    public double getAverageSalary() {
+        return getTotalSalary() / personalList.size();
+    }
+    /* Total salary of employees */
+
+    public int getTotalSalary() {
+        int totalSalary = 0;
+        for (Personal staff : personalList) {
+            totalSalary = totalSalary + staff.getSalaryReceived();
+        }
+        return totalSalary;
+    }
+
+    /* Sort full-time employees by salary ascending */
+    public List<FullTimeStaff> sortHardSalary() {
+        List<FullTimeStaff> fullTimeStaffs = new ArrayList<>();
+        for (Personal staff : personalList) {
+            if (staff instanceof FullTimeStaff)
+                fullTimeStaffs.add((FullTimeStaff) staff);
+        }
+        Collections.sort(fullTimeStaffs);
+        return fullTimeStaffs;
+    }
+
+    /* Sort part-time employees by working hours */
+    public List<PartTimeStaff> sortHour() {
+        List<PartTimeStaff> partTimeStaffs = new ArrayList<>();
+        for (Personal staff : personalList) {
+            if (staff instanceof PartTimeStaff)
+                partTimeStaffs.add((PartTimeStaff) staff);
+        }
+        Collections.sort(partTimeStaffs);
+        return partTimeStaffs;
     }
 }
