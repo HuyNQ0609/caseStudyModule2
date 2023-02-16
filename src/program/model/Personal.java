@@ -1,7 +1,7 @@
 package program.model;
 
 public abstract class Personal extends Name implements Wage {
-    private int id;
+    private String id;
     private int age;
     private String address;
     private String email;
@@ -10,7 +10,7 @@ public abstract class Personal extends Name implements Wage {
     public Personal() {
     }
 
-    public Personal(int id, int age, String address, String email, String phoneNumber) {
+    public Personal(String id, int age, String address, String email, String phoneNumber) {
         this.id = id;
         this.age = age;
         this.address = address;
@@ -18,7 +18,7 @@ public abstract class Personal extends Name implements Wage {
         this.phoneNumber = phoneNumber;
     }
 
-    public Personal(int id, String name, int age, String address, String email, String phoneNumber) {
+    public Personal(String id, String name, int age, String address, String email, String phoneNumber) {
         super(name);
         this.id = id;
         this.age = age;
@@ -27,11 +27,11 @@ public abstract class Personal extends Name implements Wage {
         this.phoneNumber = phoneNumber;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 

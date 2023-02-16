@@ -1,5 +1,6 @@
 package program.views;
 
+import login.UserExample;
 import program.controller.*;
 import program.model.*;
 
@@ -11,7 +12,24 @@ public class PerformFunction {
     List<Personal> employees = new ArrayList<>();
     StaffManager staffManager = new StaffManager(employees);
     private final Scanner input = new Scanner(System.in);
-    private int choose() {
+
+    public void loginUser() {
+        UserExample userExample = new UserExample();
+        System.out.println("Login your account");
+        while (true) {
+            System.out.println("Enter account: ");
+            String account = input.nextLine();
+            System.out.println("Enter password: ");
+            String password = input.nextLine();
+            if(userExample.validateAccount(account) && userExample.validatePassword(password)) {
+                System.out.println("Login successful!");
+                break;
+            } else {
+                System.out.println("Login unsuccessful. Please login again!");
+            }
+        }
+    }
+    public int choose() {
         try {
             System.out.println("Enter your choice: ");
             return Integer.parseInt(input.nextLine());
@@ -110,7 +128,7 @@ public class PerformFunction {
             case 3 -> editFullTimeStaff();
             case 4 -> editPartTimeStaff();
             case 5 -> removeStaff();
-            case 6 -> searchStaffInformation();
+            case 6 -> System.out.println(staffManager.searchStaff(enterName()));
             case 7 -> showListStaff();
             case 8 -> System.out.println("Arrange and display a full-time staff list according to salary:\n" +
                                         staffManager.sortHardSalary());
@@ -128,14 +146,9 @@ public class PerformFunction {
             System.out.println(staff);
         }
     }
-    public int enterId() {
-        try {
-            System.out.println("Enter id: ");
-            return Integer.parseInt(input.nextLine());
-        } catch (NumberFormatException e) {
-            System.out.println("Please enter again!");
-        }
-        return enterId();
+    public String enterId() {
+        System.out.println("Enter id: ");
+        return input.nextLine();
     }
     public String enterName() {
         System.out.println("Enter name: ");
@@ -244,8 +257,5 @@ public class PerformFunction {
     }
     public void removeStaff() {
         staffManager.deleteStaff(enterName());
-    }
-    public void searchStaffInformation() {
-        System.out.println(staffManager.searchStaff(enterName()));
     }
 }

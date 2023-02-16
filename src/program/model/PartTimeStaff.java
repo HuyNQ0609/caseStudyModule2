@@ -11,12 +11,12 @@ public class PartTimeStaff extends Personal implements Comparable<PartTimeStaff>
         this.hour = hour;
     }
 
-    public PartTimeStaff(int id, int age, String address, String email, String phoneNumber, int hour) {
+    public PartTimeStaff(String id, int age, String address, String email, String phoneNumber, int hour) {
         super(id, age, address, email, phoneNumber);
         this.hour = hour;
     }
 
-    public PartTimeStaff(int id, String name, int age, String address, String email, String phoneNumber, int hour) {
+    public PartTimeStaff(String id, String name, int age, String address, String email, String phoneNumber, int hour) {
         super(id, name, age, address, email, phoneNumber);
         this.hour = hour;
     }
