@@ -64,6 +64,11 @@ public class StaffManager {
         return "Staff not found!";
     }
 
+    /* Show list staff information */
+    public List<Personal> showListStaff() {
+        return staffList;
+    }
+
     /* Average salary of employees */
     public double getAverageSalary() {
         int size = staffList.size();

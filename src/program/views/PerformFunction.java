@@ -3,15 +3,17 @@ package program.views;
 import login.UserExample;
 import program.controller.*;
 import program.model.*;
+import program.storage.ReadAndWrite;
 
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class PerformFunction {
-    List<Personal> employees = new ArrayList<>();
-    List<Customer> customers = new ArrayList<>();
-    StaffManager staffManager = new StaffManager(employees);
+    ProductManager productManager = new ProductManager();
+    Customer customer;
+    CustomerManager customerManager = new CustomerManager();
+    StaffManager staffManager = new StaffManager();
     private final Scanner input = new Scanner(System.in);
 
     public void loginUser() {
@@ -23,7 +25,12 @@ public class PerformFunction {
             System.out.println("Enter password: ");
             String password = input.nextLine();
             if(userExample.validateAccount(account) && userExample.validatePassword(password)) {
-                System.out.println("Login successful!");
+                if (account.equals("module2") && password.equals("CaseStudy")) {
+                    System.out.println("Login successful!");
+                    showManagerProgram();
+                } else {
+                    System.out.println("Login successful!");
+                }
                 break;
             } else {
                 System.out.println("Login unsuccessful. Please login again!");
@@ -88,15 +95,11 @@ public class PerformFunction {
                             2. Edit product
                             3. Delete product
                             4. Search product
-                            5. Arrange products by price
-                            6. Product price editing
+                            5. Show list product
+                            6. Arrange products information by price
                             0. Back to show management section
                             """);
-                    try {
-                        choose();
-                    } catch (InputMismatchException e) {
-                        System.out.println("Error! Please choose again!");
-                    }
+                    showProductManager(choose());
                 } while (true);
             }
             case 3 -> {
@@ -105,46 +108,18 @@ public class PerformFunction {
                             
                             Customer manager
                             
-                            1. Show customer information
-                            2. Add products that customers buy to the list
-                            3. Showing a list of products customers bought
-                            4. Display the total amount of money the customer has paid
+                            1. Show original product list
+                            2. Show customer information
+                            3. Add products that customers buy to the list
+                            4. Showing a list of products customers bought
+                            5. Display the total amount of money the customer has paid
                             0. Back to show management section
                             """);
-                    try {
-                        choose();
-                    } catch (InputMismatchException e) {
-                        System.out.println("Error! Please choose again!");
-                    }
+                    showCustomerManager(choose());
                 } while (true);
             }
             case 0 -> System.exit(choice);
             default -> System.out.println("Please choose again!");
-        }
-    }
-    public void showStaffManager(int numberChoose) {
-        switch (numberChoose) {
-            case 1 -> addNewFullTimeStaff();
-            case 2 -> addNewPartTimeStaff();
-            case 3 -> editFullTimeStaff();
-            case 4 -> editPartTimeStaff();
-            case 5 -> removeStaff();
-            case 6 -> System.out.println(staffManager.searchStaff(enterName()));
-            case 7 -> showListStaff();
-            case 8 -> System.out.println("Arrange and display a full-time staff list according to salary:\n" +
-                                        staffManager.sortHardSalary());
-            case 9 -> System.out.println("Arrange and display a part-time staff list according to working hours:\n" +
-                                        staffManager.sortHour());
-            case 10 -> System.out.println("The total salary must be paid to the entire staff: " + staffManager.getTotalSalary());
-            case 11 -> System.out.println("The average salary must be paid to the staff in the shop: " + staffManager.getAverageSalary());
-            case 0 -> showManagerProgram();
-            default -> System.out.println("Please choose again!");
-        }
-    }
-    /* Show list staff information */
-    public void showListStaff() {
-        for (Personal staff : employees) {
-            System.out.println(staff);
         }
     }
     public String enterId() {
@@ -241,6 +216,27 @@ public class PerformFunction {
         }
         return enterPrice();
     }
+
+    /* Staff manager */
+    public void showStaffManager(int numberChoose) {
+        switch (numberChoose) {
+            case 1 -> addNewFullTimeStaff();
+            case 2 -> addNewPartTimeStaff();
+            case 3 -> editFullTimeStaff();
+            case 4 -> editPartTimeStaff();
+            case 5 -> removeStaff();
+            case 6 -> System.out.println(staffManager.searchStaff(enterName()));
+            case 7 -> System.out.println(staffManager.showListStaff());
+            case 8 -> System.out.println("Arrange and display a full-time staff list according to salary:\n" +
+                    staffManager.sortHardSalary());
+            case 9 -> System.out.println("Arrange and display a part-time staff list according to working hours:\n" +
+                    staffManager.sortHour());
+            case 10 -> System.out.println("The total salary must be paid to the entire staff: " + staffManager.getTotalSalary());
+            case 11 -> System.out.println("The average salary must be paid to the staff in the shop: " + staffManager.getAverageSalary());
+            case 0 -> showManagerProgram();
+            default -> System.out.println("Please choose again!");
+        }
+    }
     public void addNewFullTimeStaff() {
         staffManager.addStaff(new FullTimeStaff(enterId(), enterName(), enterAge(),
                 enterAddress(), enterEmail(), enterPhoneNumber(), enterHardSalary(),
@@ -260,9 +256,65 @@ public class PerformFunction {
         staffManager.deleteStaff(enterName());
     }
 
-    public void showListCustomer() {
-        for (Customer customer: customers) {
-            System.out.println(customer);
+    /* Product manager */
+    public void addNewProduct() {
+        productManager.addProduct(new Product(enterName(), enterPrice()));
+    }
+    public void editProductInformation() {
+        productManager.editProduct(enterName());
+    }
+    public void removeProduct() {
+        productManager.deleteProduct(enterName());
+    }
+    public void showProductManager(int numberChoose) {
+        switch(numberChoose) {
+            case 1 -> addNewProduct();
+            case 2 -> editProductInformation();
+            case 3 -> removeProduct();
+            case 4 -> System.out.println(productManager.searchProduct(enterName()));
+            case 5 -> productManager.sortProducts();
+            case 0 -> showManagerProgram();
+            default -> System.out.println("Please choose again!");
+        }
+    }
+
+    /* Customer manager */
+    public void showCustomer() {
+        customer = new Customer(enterName(),enterAge(), enterAddress(),
+                                    enterEmail(),enterPhoneNumber());
+        System.out.println(customer);
+    }
+    public void showCustomerManager(int numberChoose) {
+        switch (numberChoose) {
+            case 1 -> System.out.println(productManager.showListProduct());
+            case 2 -> showCustomer();
+            case 3 -> {
+                do {
+                    System.out.println("""
+                    
+                    Invoices
+                    
+                    1. Add new product to invoices
+                    0. Back to show Customer Manager
+                    """);
+                    showInvoices(numberChoose);
+                } while (true);
+            }
+            case 4 -> {
+                System.out.println("The list of products selected by the customer is:\n"
+                                    + customerManager.showInvoices());
+            }
+            case 5 -> System.out.println("The amount to be paid by the customer is: " +
+                                            customerManager.getTotalPriceBill());
+            case 0 -> showManagerProgram();
+            default -> System.out.println("Please choose again!");
+        }
+    }
+    public void showInvoices(int numberChoose) {
+        switch (choose()) {
+            case 1 -> customerManager.addProductToInvoices(enterName());
+            case 0 -> showCustomerManager(numberChoose);
+            default -> System.out.println("Please choose again!");
         }
     }
 }

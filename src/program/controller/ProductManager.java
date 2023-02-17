@@ -63,13 +63,13 @@ public class ProductManager {
         }
         return "Product not found!";
     }
-
-    /* Returns the total number of products included in the list */
-    public int getQuantity() {
-        int quantity = 0;
-        for (int i = 0; i < productList.size(); i++) {
-            quantity++;
-        }
-        return quantity;
+    /* Show list product */
+    public List<Product> showListProduct() {
+        return productList;
+    }
+    /* Arrange products information by price */
+    public void sortProducts() {
+        Collections.sort(productList);
+        ReadAndWrite.getInstance().writeFileProduct(productList);
     }
 }
