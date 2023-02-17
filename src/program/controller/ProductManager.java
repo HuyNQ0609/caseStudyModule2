@@ -55,7 +55,7 @@ public class ProductManager {
     }
 
     /* Search product */
-    public String searchStaff(String name) {
+    public String searchProduct(String name) {
         for (Product product: productList) {
             if (name.equals(product.getName())) {
                 return "" + product;

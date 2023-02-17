@@ -10,6 +10,7 @@ import java.util.regex.Pattern;
 
 public class PerformFunction {
     List<Personal> employees = new ArrayList<>();
+    List<Customer> customers = new ArrayList<>();
     StaffManager staffManager = new StaffManager(employees);
     private final Scanner input = new Scanner(System.in);
 
@@ -257,5 +258,11 @@ public class PerformFunction {
     }
     public void removeStaff() {
         staffManager.deleteStaff(enterName());
+    }
+
+    public void showListCustomer() {
+        for (Customer customer: customers) {
+            System.out.println(customer);
+        }
     }
 }

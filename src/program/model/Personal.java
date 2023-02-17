@@ -10,8 +10,8 @@ public abstract class Personal extends Name implements Wage {
     public Personal() {
     }
 
-    public Personal(String id, int age, String address, String email, String phoneNumber) {
-        this.id = id;
+    public Personal(String name, int age, String address, String email, String phoneNumber) {
+        super(name);
         this.age = age;
         this.address = address;
         this.email = email;

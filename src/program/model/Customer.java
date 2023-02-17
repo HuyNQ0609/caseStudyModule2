@@ -11,22 +11,21 @@ public class Customer extends Personal {
         this.products = products;
     }
 
+    public Customer(String name, int age, String address, String email, String phoneNumber) {
+        super(name, age, address, email, phoneNumber);
+    }
+
+    public Customer(String id, int age, String address, String email,
+                                String phoneNumber, List<Product> products) {
+        super(id, age, address, email, phoneNumber);
+        this.products = products;
+    }
+
     public List<Product> getProducts() {
         return products;
     }
 
     public void setProducts(List<Product> products) {
-        this.products = products;
-    }
-
-    public Customer(String id, int age, String address, String email, String phoneNumber, List<Product> products) {
-        super(id, age, address, email, phoneNumber);
-        this.products = products;
-    }
-
-    public Customer(String id, String name, int age, String address, String email,
-                    String phoneNumber, List<Product> products) {
-        super(id, name, age, address, email, phoneNumber);
         this.products = products;
     }
 
