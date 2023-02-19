@@ -1,56 +1,44 @@
 package program.controller;
 
 import program.model.CustomerInvoices;
-import program.model.Product;
-import program.storage.ReadAndWrite;
+import program.model.Wage;
 
 import java.util.*;
 
-public class CustomerManager {
-    List<Product> products;
+public class CustomerManager implements Wage {
+    List<CustomerInvoices> listProductInInvoices = new ArrayList<>();
 
     public CustomerManager() {}
 
-    public CustomerManager(List<Product> products) {
-        this.products = products;
+    public CustomerManager(List<CustomerInvoices> listProductInInvoices) {
+        this.listProductInInvoices = listProductInInvoices;
     }
 
-    public List<Product> getProducts() {
-        return products;
+    public List<CustomerInvoices> getListProductInInvoices() {
+        return listProductInInvoices;
     }
 
-    public void setProducts(List<Product> products) {
-        this.products = products;
+    public void setListProductInInvoices(List<CustomerInvoices> listProductInInvoices) {
+        this.listProductInInvoices = listProductInInvoices;
     }
-
-    List<CustomerInvoices> invoices = new ArrayList<>();
 
     /* Add products to customers' invoices */
-    public void addProductToInvoices(String name) {
-        for (Product product : products) {
-            if (name.equals(product.getName())) {
-                invoices.add((CustomerInvoices) product);
-                break;
-            }
-        }
-    }
-
-    public void editProductToInvoices() {
-
+    public void addProductToInvoices (CustomerInvoices product) {
+        listProductInInvoices.add(product);
     }
 
     /* The total amount that customers must pay the bill */
-
-    public int getTotalPriceBill() {
-        int total = 0;
-        for (CustomerInvoices product : invoices) {
-            total += (product.getPrice() * product.getQuantity());
+    @Override
+    public int getMoney() {
+        int totalMoney = 0;
+        for (CustomerInvoices product : listProductInInvoices) {
+            totalMoney += (product.getPrice() * product.getQuantity());
         }
-        return total;
+        return totalMoney;
     }
     /* Display a list of products selected by customers */
 
     public List<CustomerInvoices> showInvoices() {
-        return invoices;
+        return listProductInInvoices;
     }
 }

@@ -31,11 +31,7 @@ public class Customer extends Personal {
 
     @Override
     public int getMoney() {
-        int totalMoney = 0;
-        for (Product product : products) {
-            totalMoney += (product.getPrice() * product.getQuantity());
-        }
-        return totalMoney;
+        return 0;
     }
 
     @Override
