@@ -1,11 +1,11 @@
-package program.controller;
+package program.controller.manager;
 
 import program.model.CustomerInvoices;
 import program.model.Wage;
 
 import java.util.*;
 
-public class CustomerManager implements Wage {
+public class CustomerManager {
     List<CustomerInvoices> listProductInInvoices = new ArrayList<>();
 
     public CustomerManager() {}
@@ -28,11 +28,10 @@ public class CustomerManager implements Wage {
     }
 
     /* The total amount that customers must pay the bill */
-    @Override
-    public int getMoney() {
+    public int getTotalMoney() {
         int totalMoney = 0;
         for (CustomerInvoices product : listProductInInvoices) {
-            totalMoney += (product.getPrice() * product.getQuantity());
+            totalMoney += product.getMoney();
         }
         return totalMoney;
     }

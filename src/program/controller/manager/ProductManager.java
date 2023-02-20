@@ -1,4 +1,4 @@
-package program.controller;
+package program.controller.manager;
 
 import program.model.Product;
 import program.storage.ReadAndWrite;
@@ -9,7 +9,7 @@ public class ProductManager {
     List<Product> productList;
 
     public ProductManager() {
-        productList = new ArrayList<>();
+        productList = ReadAndWrite.getInstance().readFileProduct();
     }
 
     public ProductManager(List<Product> productList) {
@@ -31,12 +31,10 @@ public class ProductManager {
     }
 
     /* Edit product */
-    public void editProduct(String name) {
-        int index;
-        for (Product product: productList) {
-            if (product.getName().equals(name)) {
-                index = productList.indexOf(product);
-                productList.set(index, product);
+    public void editProduct(String name, Product product) {
+        for (int i = 0; i < productList.size(); i++) {
+            if (name.equals(productList.get(i).getName())) {
+                productList.set(i, product);
                 break;
             }
         }
@@ -46,7 +44,7 @@ public class ProductManager {
     /* Delete product */
     public void deleteProduct(String name) {
         for (Product product: productList) {
-            if (product.getName().equals(name)) {
+            if (name.equals(product.getName())) {
                 productList.remove(product);
                 break;
             }
@@ -64,12 +62,16 @@ public class ProductManager {
         return "Product not found!";
     }
     /* Show list product */
-    public List<Product> showListProduct() {
-        return productList;
+    public void showListProduct() {
+        for (Product product: productList) {
+            System.out.println(product);
+        }
     }
     /* Arrange products information by price */
     public void sortProducts() {
         Collections.sort(productList);
-        ReadAndWrite.getInstance().writeFileProduct(productList);
+        for (Product product: productList) {
+            System.out.println(product);
+        }
     }
 }

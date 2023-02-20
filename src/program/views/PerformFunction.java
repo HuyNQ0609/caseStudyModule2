@@ -1,9 +1,10 @@
 package program.views;
 
-import login.UserExample;
-import program.controller.*;
+import program.controller.login.UserExample;
+import program.controller.manager.CustomerManager;
+import program.controller.manager.ProductManager;
+import program.controller.manager.StaffManager;
 import program.model.*;
-import program.storage.ReadAndWrite;
 
 import java.util.*;
 import java.util.regex.Matcher;
@@ -18,7 +19,7 @@ public class PerformFunction {
 
     public void loginUser() {
         UserExample userExample = new UserExample();
-        System.out.println("Login your account");
+        System.out.println("--------------Login your account--------------");
         while (true) {
             System.out.println("Enter account: ");
             String account = input.nextLine();
@@ -29,11 +30,11 @@ public class PerformFunction {
                 if (account.equals("module2") && password.equals("CaseStudy")) {
                     showManagerProgram();
                 } else {
-                    showMenuCustomerManager();
+                    showStaffManagerPage();
                 }
                 break;
             } else {
-                System.out.println("Login unsuccessful. Please login again!");
+                System.out.println("Login unsuccessful. Please program.controller.login again!");
             }
         }
     }
@@ -42,21 +43,23 @@ public class PerformFunction {
             System.out.println("Enter your choice: ");
             return Integer.parseInt(input.nextLine());
         } catch (NumberFormatException e) {
-            System.out.println("Please enter again: ");
+            System.out.println("Please enter again! ");
         }
-        return -1;
+        return choose();
     }
     public void showManagerProgram() {
         PerformFunction performFunction = new PerformFunction();
         do {
             System.out.println("""
-                            
-                    Management section
-                            
-                    1. Staff manager
-                    2. Product manager
-                    3. Customer manager
-                    0. Exit
+                     
+                     _______________________________________________
+                    |               Management section              |
+                    |                                               |
+                    |       1. Staff manager                        |
+                    |       2. Product manager                      |
+                    |       3. Customer manager                     |
+                    |       0. Exit manager                         |
+                    |_______________________________________________|
                     """);
             performFunction.selectAManagementSection(choose());
         } while(true);
@@ -70,57 +73,63 @@ public class PerformFunction {
             default -> System.out.println("Please choose again!");
         }
     }
-    private void showMenuStaffManager() {
+    public void showMenuStaffManager() {
         do {
            System.out.println("""
-                   
-                   Staff manager
-                   
-                   1. Add new full-time staff information
-                   2. Add new part-time staff information
-                   3. Edit full-time staff information
-                   4. Edit part-time staff information
-                   5. Delete staff
-                   6. Search staff information
-                   7. Show list staff information
-                   8. Arrange and display a full-time staff list according to salary
-                   9. Arrange and display a part-time staff list according to working hours
-                   10. The total salary must be paid to the entire staff
-                   11. The average salary must be paid to the staff in the shop
-                   0. Back to show management section
+                    
+                    ________________________________________________________________________________
+                   |                            Staff manager                                       |
+                   |                                                                                |
+                   |    1. Add new full-time staff information                                      |
+                   |    2. Add new part-time staff information                                      |
+                   |    3. Edit full-time staff information                                         |
+                   |    4. Edit part-time staff information                                         |
+                   |    5. Delete staff                                                             |
+                   |    6. Search staff information                                                 |
+                   |    7. Show list staff information                                              |
+                   |    8. Arrange and display a full-time staff list according to salary           |
+                   |    9. Arrange and display a part-time staff list according to working hours    |
+                   |    10. The total salary must be paid to the entire staff                       |
+                   |    11. The average salary must be paid to the staff in the shop                |
+                   |    0. Back to show management section                                          |
+                   |________________________________________________________________________________|
                    """);
            showStaffManager(choose());
        } while (true);
     }
-    private void showMenuProductManger() {
+    public void showMenuProductManger() {
         do {
             System.out.println("""
-                    
-                    Product manager
-                    
-                    1. Add new product
-                    2. Edit product
-                    3. Delete product
-                    4. Search product
-                    5. Show list product
-                    6. Arrange products information by price
-                    0. Back to show management section
+                     
+                     _______________________________________________________
+                    |                   Product manager                     |
+                    |                                                       |
+                    |       1. Add new product                              |
+                    |       2. Edit product                                 |
+                    |       3. Delete product                               |
+                    |       4. Search product                               |
+                    |       5. Show list product                            |
+                    |       6. Arrange products information by price        |
+                    |       0. Back to show management section              |
+                    |_______________________________________________________|
                     """);
             showProductManager(choose());
         } while (true);
     }
-    private void showMenuCustomerManager() {
+    public void showMenuCustomerManager() {
         do {
             System.out.println("""
-                    
-                    Customer manager
-                    
-                    1. Show original product list
-                    2. Show customer information
-                    3. Add products that customers buy to the list
-                    4. Showing a list of products customers bought
-                    5. Display the total amount of money the customer has paid
-                    0. Back to show management section
+                     
+                     _______________________________________________________________________
+                    |                       Customer manager                                |
+                    |                                                                       |
+                    |       1. Show original product list                                   |
+                    |       2. Show customer information                                    |
+                    |       3. Add products that customers buy to the list                  |
+                    |       4. Showing a list of products customers bought                  |
+                    |       5. Display the total amount of money the customer has paid      |
+                    |       0. Back to show management section                              |
+                    |_______________________________________________________________________|
                     """);
             showCustomerManager(choose());
         } while (true);
@@ -129,7 +138,18 @@ public class PerformFunction {
     /**************************************************************/
     public String enterId() {
         System.out.println("Enter id: ");
-        return input.nextLine();
+        String id = input.nextLine();
+        for (Personal employee : staffManager.getStaffList()) {
+            while (true) {
+                if (employee.getId().equals(id)) {
+                    System.out.println("ID already in the list, please re-enter another id: ");
+                    id = input.nextLine();
+                } else {
+                    break;
+                }
+            }
+        }
+        return id;
     }
     public String enterName() {
         System.out.println("Enter name: ");
@@ -144,6 +164,31 @@ public class PerformFunction {
         }
         return enterAge();
     }
+
+    public String checkNameProduct() {
+        System.out.println("Enter name: ");
+        String name = input.nextLine();
+        for (int i = 0; i < productManager.getProductList().size(); i++) {
+            if (name.equals(productManager.getProductList().get(i).getName())) {
+                return name;
+            }
+        }
+        System.out.println("Name not found!");
+        return checkNameProduct();
+    }
+
+    public String checkNameStaff() {
+        System.out.println("Enter name: ");
+        String name = input.nextLine();
+        for (int i = 0; i < staffManager.getStaffList().size(); i++) {
+            if (name.equals(staffManager.getStaffList().get(i).getName())) {
+                return name;
+            }
+        }
+        System.out.println("Name not found!");
+        return checkNameStaff();
+    }
+
     public String enterAddress() {
         System.out.println("Enter address: ");
         return input.nextLine();
@@ -230,14 +275,20 @@ public class PerformFunction {
             case 3 -> editFullTimeStaff();
             case 4 -> editPartTimeStaff();
             case 5 -> removeStaff();
-            case 6 -> System.out.println(staffManager.searchStaff(enterName()));
-            case 7 -> System.out.println(staffManager.showListStaff());
-            case 8 -> System.out.println("Arrange and display a full-time staff list according to salary:\n" +
-                    staffManager.sortHardSalary());
-            case 9 -> System.out.println("Arrange and display a part-time staff list according to working hours:\n" +
-                    staffManager.sortHour());
-            case 10 -> System.out.println("The total salary must be paid to the entire staff: " + staffManager.getTotalSalary());
-            case 11 -> System.out.println("The average salary must be paid to the staff in the shop: " + staffManager.getAverageSalary());
+            case 6 -> System.out.println(staffManager.searchStaff(checkNameStaff()));
+            case 7 -> staffManager.showListStaff();
+            case 8 -> {
+                System.out.println("Arrange and display a full-time staff list according to salary:");
+                staffManager.sortHardSalary();
+            }
+            case 9 -> {
+                System.out.println("Arrange and display a part-time staff list according to working hours:");
+                staffManager.sortHour();
+            }
+            case 10 -> System.out.println("The total salary must be paid to the entire staff: " +
+                    staffManager.getTotalSalary());
+            case 11 -> System.out.println("The average salary must be paid to the staff in the shop: " +
+                    staffManager.getAverageSalary());
             case 0 -> showManagerProgram();
             default -> System.out.println("Please choose again!");
         }
@@ -252,13 +303,16 @@ public class PerformFunction {
                 enterAddress(), enterEmail(), enterPhoneNumber(), enterHour()));
     }
     public void editFullTimeStaff() {
-        staffManager.editStaff(enterName());
+        staffManager.editStaff(checkNameStaff(), new FullTimeStaff(enterId(), enterName(), enterAge(),
+                    enterAddress(), enterEmail(), enterPhoneNumber(), enterHardSalary(),
+                    enterReward(), enterMulct()));
     }
     public void editPartTimeStaff() {
-        staffManager.editStaff(enterName());
+        staffManager.editStaff(checkNameStaff(), new PartTimeStaff(enterId(), enterName(), enterAge(),
+                    enterAddress(), enterEmail(), enterPhoneNumber(), enterHour()));
     }
     public void removeStaff() {
-        staffManager.deleteStaff(enterName());
+        staffManager.deleteStaff(checkNameStaff());
     }
 
     /* Product manager */
@@ -266,18 +320,18 @@ public class PerformFunction {
         productManager.addProduct(new Product(enterName(), enterPrice()));
     }
     public void editProductInformation() {
-        productManager.editProduct(enterName());
+        productManager.editProduct(checkNameProduct(),new Product(enterName(), enterPrice()));
     }
     public void removeProduct() {
-        productManager.deleteProduct(enterName());
+        productManager.deleteProduct(checkNameProduct());
     }
     public void showProductManager(int numberChoose) {
         switch(numberChoose) {
             case 1 -> addNewProduct();
             case 2 -> editProductInformation();
             case 3 -> removeProduct();
-            case 4 -> System.out.println(productManager.searchProduct(enterName()));
-            case 5 -> System.out.println(productManager.showListProduct());
+            case 4 -> System.out.println(productManager.searchProduct(checkNameProduct()));
+            case 5 -> productManager.showListProduct();
             case 6 -> productManager.sortProducts();
             case 0 -> showManagerProgram();
             default -> System.out.println("Please choose again!");
@@ -292,7 +346,7 @@ public class PerformFunction {
     }
     public void showCustomerManager(int numberChoose) {
         switch (numberChoose) {
-            case 1 -> System.out.println(productManager.showListProduct());
+            case 1 -> productManager.showListProduct();
             case 2 -> showCustomer();
             case 3 -> {
                 do {
@@ -311,7 +365,7 @@ public class PerformFunction {
                                     + customerManager.showInvoices());
             }
             case 5 -> System.out.println("The amount to be paid by the customer is: " +
-                                            customerManager.getMoney());
+                                            customerManager.getTotalMoney());
             case 0 -> showManagerProgram();
             default -> System.out.println("Please choose again!");
         }
@@ -321,6 +375,51 @@ public class PerformFunction {
             case 1 -> customerManager.addProductToInvoices(new CustomerInvoices(enterName(),
                                             enterPrice(), enterQuantity()));
             case 0 -> showCustomerManager(numberChoose);
+            default -> System.out.println("Please choose again!");
+        }
+    }
+
+    public void showStaffManagerPage() {
+        do {
+            System.out.println("""
+                     _______________________________________________________________________
+                    |                    Employee Management Section                        |
+                    |                                                                       |
+                    |       1. Show original product list                                   |
+                    |       2. Show customer information                                    |
+                    |       3. Add products that customers buy to the list                  |
+                    |       4. Showing a list of products customers bought                  |
+                    |       5. Display the total amount of money the customer has paid      |
+                    |       0. Exit Program                                                 |
+                    |_______________________________________________________________________|
+                    """);
+            showCustomerInformation(choose());
+        } while (true);
+    }
+
+    public void showCustomerInformation(int numberChoose) {
+        switch (numberChoose) {
+            case 1 -> productManager.showListProduct();
+            case 2 -> showCustomer();
+            case 3 -> {
+                do {
+                    System.out.println("""
+                    
+                    Invoices
+                    
+                    1. Add new product to invoices
+                    0. Back to Staff Manager Page
+                    """);
+                    showCustomerManager(numberChoose);
+                } while (true);
+            }
+            case 4 -> {
+                System.out.println("The list of products selected by the customer is:\n"
+                        + customerManager.showInvoices());
+            }
+            case 5 -> System.out.println("The amount to be paid by the customer is: " +
+                    customerManager.getTotalMoney());
+            case 0 -> System.exit(numberChoose);
             default -> System.out.println("Please choose again!");
         }
     }

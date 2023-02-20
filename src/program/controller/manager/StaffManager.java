@@ -1,4 +1,4 @@
-package program.controller;
+package program.controller.manager;
 
 import program.model.*;
 import program.storage.ReadAndWrite;
@@ -9,7 +9,7 @@ public class StaffManager {
     List<Personal> staffList;
 
     public StaffManager() {
-        staffList = new ArrayList<>();
+        staffList = ReadAndWrite.getInstance().readFileStaff();
     }
 
     public StaffManager(List<Personal> staffList) {
@@ -31,12 +31,10 @@ public class StaffManager {
     }
 
     /* Edit staff information */
-    public void editStaff(String name) {
-        int index;
-        for (Personal personal: staffList) {
-            if (name.equals(personal.getName())) {
-                index = staffList.indexOf(personal);
-                staffList.set(index, personal);
+    public void editStaff(String name, Personal personal) {
+        for (int i = 0; i < staffList.size(); i++) {
+            if (name.equals(staffList.get(i).getName())) {
+                staffList.set(i, personal);
                 break;
             }
         }
@@ -65,8 +63,10 @@ public class StaffManager {
     }
 
     /* Show list staff information */
-    public List<Personal> showListStaff() {
-        return staffList;
+    public void showListStaff() {
+        for (Personal personal: staffList) {
+            System.out.println(personal);
+        }
     }
 
     /* Average salary of employees */
@@ -85,24 +85,28 @@ public class StaffManager {
     }
 
     /* Sort full-time employees by salary ascending */
-    public List<FullTimeStaff> sortHardSalary() {
-        List<FullTimeStaff> fullTimeStaffs = new ArrayList<>();
+    public void sortHardSalary() {
+        List<FullTimeStaff> fullTimeStaffList = new ArrayList<>();
         for (Personal staff : staffList) {
             if (staff instanceof FullTimeStaff)
-                fullTimeStaffs.add((FullTimeStaff) staff);
+                fullTimeStaffList.add((FullTimeStaff) staff);
         }
-        Collections.sort(fullTimeStaffs);
-        return fullTimeStaffs;
+        Collections.sort(fullTimeStaffList);
+        for (Personal staff : fullTimeStaffList) {
+            System.out.println(staff);
+        }
     }
 
     /* Sort part-time employees by working hours */
-    public List<PartTimeStaff> sortHour() {
-        List<PartTimeStaff> partTimeStaffs = new ArrayList<>();
+    public void sortHour() {
+        List<PartTimeStaff> partTimeStaffList = new ArrayList<>();
         for (Personal staff : staffList) {
             if (staff instanceof PartTimeStaff)
-                partTimeStaffs.add((PartTimeStaff) staff);
+                partTimeStaffList.add((PartTimeStaff) staff);
         }
-        Collections.sort(partTimeStaffs);
-        return partTimeStaffs;
+        Collections.sort(partTimeStaffList);
+        for (Personal staff : partTimeStaffList) {
+            System.out.println(staff);
+        }
     }
 }
